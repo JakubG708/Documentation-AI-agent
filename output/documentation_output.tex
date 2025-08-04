@@ -1,33 +1,42 @@
 \documentclass{article}
 \usepackage{listings}
-\lstset{language=Python, breaklines=true, basicstyle=\ttfamily}
+\lstset{language=Python, breaklines=true}
 
 \begin{document}
 
-\title{Automated Documentation Generator}
+\title{Code Documentation Generation with AI Agents}
 \author{}
 \date{}
 \maketitle
 
 \section*{Purpose}
-This script reads the current Python file and uses an AI model to generate LaTeX documentation for the provided code. It interacts with the Ollama API to facilitate this process. The generated documentation is saved as a LaTeX document in a specified directory.
+This script automates the process of generating documentation for provided code using three different AI agents. The agents are designed to handle specific tasks such as content generation, formatting, and validation of LaTeX documents. The final documentation is saved in a specified directory.
 
-\section*{Inputs}
-- None explicitly defined by user inputs, but requires the path to the current Python file and access to an Ollama model capable of generating text based on prompts.
+\section{Classes and Functions}
 
-\section*{Outputs}
-- A LaTeX document containing documentation for the provided code.
+\subsection{Agent Class}
+The \texttt{Agent} class is initialized with a system prompt and a model name. It has two methods: 
+\begin{itemize}
+    \item \textbf{\_\_init\_\_}: Sets up the initial parameters for the agent, including the system prompt and model selection.
+    \item \textbf{run}: Takes user input and sends it to the AI model to generate documentation based on the provided code.
+\end{itemize}
 
-\section*{Usage Example}
-Assuming you have the script saved as \begin{lstlisting}
-output/documentation_output.tex
-\end{lstlisting} 
-and it is located in a directory with Python files, you can run this script from your command line:
+\subsection{RandomClass Class}
+The \texttt{RandomClass} class has:
+\begin{itemize}
+    \item \textbf{\_\_init\_\_}: Initializes with a placeholder for something unknown.
+    \item \textbf{do\_thing}: A method that returns the value 1, without any clear purpose defined in the provided code.
+\end{itemize}
 
-\begin{lstlisting}[language=bash]
-python generate_documentation.py
-\end{lstlisting}
-
-The script will read the current file's path and use an Ollama model to generate documentation which is then saved in a directory named "output" within the same location as the script, with the filename "documentation\_output.tex".
+\section*{Main Script Logic}
+The script performs several steps:
+\begin{enumerate}
+    \item Reads the current file's path and contents.
+    \item Initializes three AI agents with specific system prompts.
+    \item Generates documentation for the provided code using the first agent.
+    \item Formats the generated LaTeX content from the generator into a structured format.
+    \item Corrects any errors or issues in the formatted LaTeX content.
+    \item Saves the corrected LaTeX content to a specified output directory as a file named "documentation\_output.tex".
+\end{enumerate}
 
 \end{document}
