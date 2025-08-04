@@ -1,6 +1,7 @@
 import ollama
 import os
 
+
 class Agent:
     def __init__(self, system_prompt, model="deepseek-coder-v2"):
         self.model = model
