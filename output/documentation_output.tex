@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{listings}
+\lstset{language=Python, breaklines=true, basicstyle=\ttfamily}
+
+\begin{document}
+
+\title{Automated Documentation Generator}
+\author{}
+\date{}
+\maketitle
+
+\section*{Purpose}
+This script reads the current Python file and uses an AI model to generate LaTeX documentation for the provided code. It interacts with the Ollama API to facilitate this process. The generated documentation is saved as a LaTeX document in a specified directory.
+
+\section*{Inputs}
+- None explicitly defined by user inputs, but requires the path to the current Python file and access to an Ollama model capable of generating text based on prompts.
+
+\section*{Outputs}
+- A LaTeX document containing documentation for the provided code.
+
+\section*{Usage Example}
+Assuming you have the script saved as \begin{lstlisting}
+output/documentation_output.tex
+\end{lstlisting} 
+and it is located in a directory with Python files, you can run this script from your command line:
+
+\begin{lstlisting}[language=bash]
+python generate_documentation.py
+\end{lstlisting}
+
+The script will read the current file's path and use an Ollama model to generate documentation which is then saved in a directory named "output" within the same location as the script, with the filename "documentation\_output.tex".
+
+\end{document}
