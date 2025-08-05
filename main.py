@@ -1,6 +1,6 @@
 import ollama
 import os
-from agent import Agent
+from classes.agent import Agent
 import re
 
 def clean_latex_output(latex: str) -> str:
