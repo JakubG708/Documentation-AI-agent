@@ -36,10 +36,4 @@ class RepositoryReader:
                         print(f"Nie można odczytać pliku {file_path}: {e}")
 
                         
-reader = RepositoryReader("C:\\Users\\agnel\\Desktop\\ai_agent_project\\Documentation-AI-agent", [".py"])
 
-reader.readRepoFiles()
-
-print(reader.assignation.keys())
-print("\n\n\n\n\n")
-print(reader.assignation.items())
