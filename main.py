@@ -1,7 +1,9 @@
 import ollama
 import os
 from classes.agent import Agent
+from classes.repositoryReader import RepositoryReader
 import re
+
 
 def clean_latex_output(latex: str) -> str:
     latex = latex.strip()
@@ -13,6 +15,9 @@ def clean_latex_output(latex: str) -> str:
     latex = re.sub(r"^```(?:latex)?\s*", "", latex)
     latex = re.sub(r"\s*```$", "", latex)
     return latex
+
+reader = RepositoryReader("C:\\Users\\agnel\\Desktop\\ai_agent_project\\Documentation-AI-agent",[".py"])
+reader.readRepoFiles()
 
 current_file = os.path.abspath(__file__)
 with open(current_file, "r", encoding="utf-8") as f:
@@ -52,19 +57,30 @@ If you find issues, correct them. Output only valid LaTeX. Do not output anythin
     temperature=TEMPERATURE
 )
 
+for file_path, code_content in reader.assignation.items():
+    print("generating")
+    print(file_path, code_content)
+    doc_raw = generator.run(f"Generate documentation for the following code:\n\n{code_content}")
+    print("first step finished")
+    doc_formatted = formator.run(f"Format the following LaTeX:\n\n{doc_raw}")
+    print("second step finished")
+    doc_corrected = corrector.run(f"Correct the LaTeX:\n\n{doc_formatted}")
+    print("third step finished")
 
-doc_raw = generator.run(f"Generate documentation for the following code:\n\n{code}")
-doc_formatted = formator.run(f"Format the following LaTeX:\n\n{doc_raw}")
-doc_corrected = corrector.run(f"Correct the LaTeX:\n\n{doc_formatted}")
+    doc_clean = clean_latex_output(doc_corrected)
 
-doc_clean = clean_latex_output(doc_corrected)
+    output_dir = os.path.join(os.path.dirname(current_file), "output")
+    os.makedirs(output_dir, exist_ok=True)
+
+    filename = os.path.basename(file_path)
+    name, ext = os.path.splitext(filename)
+    output_filename = f"{name}_documentation.tex"
+    output_path = os.path.join(output_dir, output_filename)
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(doc_clean)
+
+    print(f"Documentation saved to: {output_path}")
 
 
-output_dir = os.path.join(os.path.dirname(current_file), "output")
-os.makedirs(output_dir, exist_ok=True)
-
-output_path = os.path.join(output_dir, "documentation_output.tex")
-with open(output_path, "w", encoding="utf-8") as f:
-    f.write(doc_clean)
-
-print(f"Documentation saved to: {output_path}")
+print("Documentation finished saving")
