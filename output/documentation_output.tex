@@ -4,39 +4,44 @@
 
 \begin{document}
 
-\title{Code Documentation Generation with AI Agents}
+\title{Code Documentation Generation}
 \author{}
 \date{}
 \maketitle
 
-\section*{Purpose}
-This script automates the process of generating documentation for provided code using three different AI agents. The agents are designed to handle specific tasks such as content generation, formatting, and validation of LaTeX documents. The final documentation is saved in a specified directory.
+\section{Purpose}
+The script automates the generation of documentation for a provided Python code file. It involves multiple steps: extracting the code, using an agent to generate initial documentation, formatting it in LaTeX, correcting any issues, and finally saving the output as a .tex file.
 
-\section{Classes and Functions}
+\subsection{Inputs}
+- \texttt{code}: The content of the Python script from which documentation is generated.
 
-\subsection{Agent Class}
-The \texttt{Agent} class is initialized with a system prompt and a model name. It has two methods: 
-\begin{itemize}
-    \item \textbf{\_\_init\_\_}: Sets up the initial parameters for the agent, including the system prompt and model selection.
-    \item \textbf{run}: Takes user input and sends it to the AI model to generate documentation based on the provided code.
-\end{itemize}
+\subsection{Outputs}
+- A LaTeX formatted document containing the documentation for the provided code.
 
-\subsection{RandomClass Class}
-The \texttt{RandomClass} class has:
-\begin{itemize}
-    \item \textbf{\_\_init\_\_}: Initializes with a placeholder for something unknown.
-    \item \textbf{do\_thing}: A method that returns the value 1, without any clear purpose defined in the provided code.
-\end{itemize}
+\section{Agents Used}
+\subsection{Generator Agent}
+The generator agent is responsible for creating initial English documentation based on the provided code. It follows specific instructions to generate concise descriptions of classes, models, endpoints, functions, and scripts in a structured format.
 
-\section*{Main Script Logic}
-The script performs several steps:
-\begin{enumerate}
-    \item Reads the current file's path and contents.
-    \item Initializes three AI agents with specific system prompts.
-    \item Generates documentation for the provided code using the first agent.
-    \item Formats the generated LaTeX content from the generator into a structured format.
-    \item Corrects any errors or issues in the formatted LaTeX content.
-    \item Saves the corrected LaTeX content to a specified output directory as a file named "documentation\_output.tex".
-\end{enumerate}
+\subsection{Formator Agent}
+This agent formats the generated documentation into LaTeX structure, ensuring each section has subsections with input, output, and brief explanations.
+
+\subsection{Corrector Agent}
+The corrector agent checks and corrects any errors or AI artifacts in the formatted LaTeX document to ensure it is valid LaTeX without additional text like ---latex at the beginning.
+
+\section{Steps}
+\subsection{Extracting Code}
+The script reads the current file's content using \texttt{os.path.abspath(file)} and \texttt{open(current\_file, "r", encoding="utf-8")}.
+
+\subsection{Generating Documentation}
+Using the generator agent with a specific system prompt, it generates documentation for the provided code.
+
+\subsection{Formatting Documentation}
+The formator agent formats the generated documentation into LaTeX structure using sections and subsections as per the instructions.
+
+\subsection{Correcting Documentation}
+The corrector agent checks and corrects any errors or artifacts in the formatted document to ensure it is valid LaTeX.
+
+\subsection{Saving Output}
+Finally, the script saves the corrected LaTeX documentation to a specified output directory with a filename \texttt{"documentation\_output.tex"}.
 
 \end{document}
